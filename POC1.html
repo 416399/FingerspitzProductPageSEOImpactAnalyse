@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html> 
+<head> 
+ 
+<style> 
+body {
+    margin: 0;
+    font-family: -apple-system, sans-serif;
+    color: #1d1d1f;
+}
+
+h1 {
+    font-size: 40px;
+    margin: 0 0 10px;
+}
+
+p {
+    font-size: 22px;
+}
+
+.hero {
+    padding: 40px;
+    text-align: center;
+}
+
+.hero-sequence {
+    height: 430vh;
+	width: 100%; 
+}
+
+.sticky-element {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    min-height: 1033px;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+}
+
+.sequence-element {
+    width: 1336px;
+    height: 786px;
+}
+
+footer {
+    background: #f5f5f7;
+    font-weight: 700;
+    font-size: 40px;
+    height: 400px;
+    display: grid;
+    place-items: center;
+}
+
+</style> 
+
+ 
+</head> 
+<body>
+<!--<canvas id="canvas" />
+<div> <h1> test </h1> </div> 
+--> 
+
+<title>Apple Sequence Animation</title>
+
+<div class="hero">
+    <h1>Apple Sequence Animation</h1>
+    <p>Scroll down to admire the magic.</p>
+</div>
+
+<div class="hero-sequence">
+    <div class="sticky-element">
+        <div class="sequence-element">
+            <canvas width="1336" height="786"></canvas>
+        </div>
+    </div>
+</div>
+
+<footer>
+    You are awesome!
+</footer>
+
+
+
+<script> 
+<!-- tutorial used: https://css-tricks.com/lets-make-one-of-those-fancy-scrolling-animations-used-on-apple-product-pages/ --> 
+<!-- additional inspiration: https://github.com/Spharian/apple-sequence-animation/blob/main/index.html --> 
+<!--const canvas = document.getElementById("canvas");--> 
+const html = document.documentElement;
+const canvas = document.querySelector('canvas');
+const context = canvas.getContext("2d");
+const heroSequence = document.querySelector('.hero-sequence')
+const images = []
+const frameCount = 148; 
+
+
+const currentFrame = index => (
+  `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_b28e_08307a42f19b/anim/sequence/large/01-hero-lightpass/${index.toString().padStart(4, '0')}.jpg`
+)
+
+const preloadImages = () => {
+  for (let i = 1; i < frameCount; i++) {
+    const image = new Image();
+    image.src = currentFrame(i);
+	images.push(image)
+  }
+};
+
+
+const drawImage = frameIndex => {
+    context.drawImage(images[frameIndex], 0, 0)
+}
+
+const img = new Image()
+img.src = currentFrame(1);
+canvas.width=1158;
+canvas.height=770;
+img.onload=function(){
+  context.drawImage(img, 0, 0);
+}
+
+const updateImage = index => {
+  img.src = currentFrame(index);
+  context.drawImage(img, 0, 0);
+}
+
+window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop - heroSequence.offsetTop
+    const maxScrollTop = heroSequence.scrollHeight - window.innerHeight
+    const scrollFraction = scrollTop / maxScrollTop
+    const frameIndex = Math.max(0, Math.min(frameCount - 1, Math.ceil(scrollFraction * frameCount)))
+
+    //images[frameIndex].onload = () => drawImage(frameIndex)
+    requestAnimationFrame(() => updateImage(frameIndex))
+})
+
+preloadImages()
+/*
+const currentFrame = index => (
+  `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_b28e_08307a42f19b/anim/sequence/large/01-hero-lightpass/${index.toString().padStart(4, '0')}.jpg`
+)
+
+const preloadImages = () => {
+  for (let i = 1; i < frameCount; i++) {
+    const img = new Image();
+    img.src = currentFrame(i);
+  }
+};
+
+const img = new Image()
+img.src = currentFrame(1);
+canvas.width=1158;
+canvas.height=770;
+img.onload=function(){
+  context.drawImage(img, 0, 0);
+}
+
+const updateImage = index => {
+  img.src = currentFrame(index);
+  context.drawImage(img, 0, 0);
+}
+
+window.addEventListener('scroll', () => {  
+  const scrollTop = html.scrollTop;
+  const maxScrollTop = html.scrollHeight - window.innerHeight;
+  const scrollFraction = scrollTop / maxScrollTop;
+  const frameIndex = Math.min(
+    frameCount - 1,
+    Math.ceil(scrollFraction * frameCount)
+  );
+  
+  requestAnimationFrame(() => updateImage(frameIndex + 1))
+});
+
+preloadImages()*/
+
+</script>
+
+</body> 
+</html> 
