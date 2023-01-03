@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html> 
+<head> 
+ 
+<style> 
+body {
+    margin: 0;
+    font-family: -apple-system, sans-serif;
+    color: #1d1d1f;
+	width:  100%;
+	height: 100%;
+	margin: 0;
+}
+
+h1 {
+    font-size: 40px;
+    margin: 0 0 10px;
+}
+
+p {
+    font-size: 22px;
+}
+
+.hero {
+    padding: 40px;
+    text-align: center;
+	background-color: lightblue; 
+}
+
+.hero-sequence {
+    text-align: center;
+    height: 430vh; /*how long you scroll for the video basically */ 
+}
+
+.sticky-element {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    min-height: 1033px;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+}
+
+.sequence-element {
+ /* width: 1336px;
+  height: 786px; */ 
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -o-sticky;
+  position: -ms-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center center;
+  
+}
+
+canvas {
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -o-sticky;
+  position: -ms-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.title_block {
+	  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: green;
+  
+    height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: blue;
+  color: white;
+  font-size: 3rem;
+  font-family: sans-serif;
+}
+
+
+footer {
+    background: #f5f5f7;
+    font-weight: 700;
+    font-size: 40px;
+    height: 400px;
+    display: grid;
+    place-items: center;
+}
+
+</style> 
+
+ 
+</head> 
+<body>
+<!--<canvas id="canvas" />
+<div> <h1> test </h1> </div> 
+--> 
+
+<title>Sequence Animation</title>
+
+<div class="hero">
+    <h1>Sequence Animation</h1>
+    <p>Scroll down to admire the magic.</p>
+</div>
+
+<div class="hero-sequence">
+    <div class="sticky-element">
+        <div class="sequence-element">
+            <canvas ></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="title_block">
+  <h1>Other Version</h1>
+</div>
+<!--
+<div id="img_container">
+  <canvas id="img_canvas">
+  </canvas>
+</div>--> 
+
+
+
+<footer>
+    You are awesome!
+</footer>
+
+
+
+<script> 
+/*tutorial used: https://css-tricks.com/lets-make-one-of-those-fancy-scrolling-animations-used-on-apple-product-pages/ 
+ additional inspiration: https://github.com/Spharian/apple-sequence-animation/blob/main/index.html
+additional inspiration:  https://codepen.io/jacob_124/pen/dyydWbB 
+additional inspiration: https://codepen.io/pkmo/pen/VwWYrdG */
+const html = document.documentElement;
+const canvas = document.querySelector('canvas');
+const context = canvas.getContext("2d");
+const heroSequence = document.querySelector('.hero-sequence')
+
+const frameCount = 210; 
+
+
+const currentFrame = index => (
+  `https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_b28e_08307a42f19b/anim/sequence/large/02-head-bob-turn/${index.toString().padStart(4, '0')}.jpg`
+)
+
+const preloadImages = () => {
+  for (let i = 1; i < frameCount; i++) {
+    const image = new Image();
+    image.src = currentFrame(i);
+	
+  }
+};
+
+
+
+const image = new Image()
+image.src = currentFrame(1);
+canvas.width=1158;
+canvas.height=770;
+
+image.onload=function(){
+  context.drawImage(image, 0, 0);
+}
+
+const updateImage = index => {
+  image.src = currentFrame(index);
+  context.drawImage(image, 0, 0);
+  console.log(index); 
+}
+
+window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop - heroSequence.offsetTop
+	  //const maxScrollTop = html.scrollHeight - window.innerHeight;
+    const maxScrollTop = heroSequence.scrollHeight - window.innerHeight
+    const scrollFraction = scrollTop / maxScrollTop
+    const frameIndex = Math.max(0, Math.min(frameCount - 1, Math.ceil(scrollFraction * frameCount)))
+
+    //images[frameIndex].onload = () => drawImage(frameIndex)
+    requestAnimationFrame(() => updateImage(frameIndex +1))
+})
+
+preloadImages()
+
+
+</script>
+ 
+
+</body> 
+</html> 
