@@ -1,0 +1,419 @@
+
+<!DOCTYPE html>
+<html> 
+<head> 
+ <link rel="stylesheet" type="text/css" href="theme9.css">
+<style> 
+body {
+    margin: 0;
+    font-family: "Gotham Black",sans-serif;
+    color: black;
+	width:  100%;
+	height: 100%;
+	margin: 0;
+}
+
+h1 {
+    font-size: 40px;
+    /*margin: 0 0 10px;*/
+	margin: auto; 
+}
+
+p {
+    font-size: 22px;
+}
+
+.hero {
+    padding: 40px;
+    text-align: center;
+	background-color: black; 
+}
+
+.hero-sequence {
+    height: 430vh; /*how long you scroll for the video basically */ 
+}
+
+.sticky-element {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+}
+
+.sequence-element {
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -o-sticky;
+  position: -ms-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center center;
+  
+}
+
+canvas {
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -o-sticky;
+  position: -ms-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.title_block {
+	  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #ffe000;
+  font-size: 3rem;
+  font-family: "Gotham Black",sans-serif;
+  display: inline-block;
+  padding: 3rem 4rem;
+}
+
+
+footer {
+    background: #f5f5f7;
+    font-weight: 700;
+    font-size: 40px;
+    height: 400px;
+    display: grid;
+    place-items: center;
+}
+
+.scroll-container {
+  background-color: #eaeaea;
+  height: 60vh;
+    display:flex; 
+  align-items: center;
+}
+
+.scroll-container-box{
+  background-color: #eaeaea;
+  height: 60vh;
+  align-items: center;
+}
+
+.scroll-element {
+  min-height: 300px;
+  height: 90%;
+  background-color: #ffffff;
+  padding: 3rem 4rem; 
+}
+
+.element1 {
+  background-color: #ffe000;
+  color: #1f1f1f; 
+  text-align: center; 
+  }
+
+.element2 {
+  background-color: #ffffff;
+  color: #1f1f1f; 
+  text-align: right; 
+  display: flex; 
+  justify-content: flex-end
+
+  }
+  
+ .element3 {
+  background-color: #1f1f1f;
+  color: #ffffff; 
+  text-align: left; 
+  } 
+  
+.element4 {
+  background-color: #ffe000; 
+  text-align: left;
+  background-position: -50px 38px;
+  background-size: 140px 140px; 
+  background-image: linear-gradient(to right,var(--background-grid-color,#000) 0,var(--background-grid-color,#000) 1px,transparent 1px,transparent 100%),linear-gradient(to bottom,var(--background-grid-color,#000) 0,var(--background-grid-color,#000) 1px,transparent 1px,transparent 100%);	
+ }
+  
+  .box {
+  background-color: #ffffff;
+  color: #1f1f1f; 
+  text-align: left;
+	background-image: linear-gradient(to right,var(--background-grid-color,#000) 0,var(--background-grid-color,#000) 1px,transparent 1px,transparent 100%),linear-gradient(to bottom,var(--background-grid-color,#000) 0,var(--background-grid-color,#000) 1px,transparent 1px,transparent 100%)	
+  }
+
+.box p {
+	  font-family: "Gotham ",sans-serif;
+	  font-size: 22pt; 
+}
+  
+.element5 {
+  background-color: #F5F5F5;
+  color: #1f1f1f; 
+  text-align: right; 
+    display: flex; 
+  justify-content: flex-end
+  }
+  
+.element6 {
+  background-color: #1f1f1f;
+  color: #ffffff; 
+  text-align: left; 
+  }
+
+.scroll-caption {
+  margin: 1rem;
+  text-align: left;
+}
+
+footer p {
+  font-size: 0.75rem;
+  margin: 0.25rem 0;
+  color: #221133;
+}
+
+footer a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.js-scroll {
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+.js-scroll.scrolled {
+  opacity: 1;
+}
+
+.scrolled.slide-left {
+  animation: slide-in-left 1s ease-in-out both;
+}
+
+.scrolled.slide-right {
+  animation: slide-in-right 1s ease-in-out both;
+}
+
+@keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-100px);
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    -webkit-transform: translateX(100px);
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+</style> 
+
+ 
+</head> 
+<body>
+<div class="hero-sequence">
+    <div class="sticky-element">
+        <div class="sequence-element">
+            <canvas ></canvas>
+        </div>
+    </div>
+</div>
+
+<section class="scroll-container-box">
+  <div class="scroll-element js-scroll slide-left element1">
+  <p class="scroll-caption" > *De data op deze pagina is voorbeeld data.  </p> 
+  <div class="scroll-element js-scroll slide-left title_block element1">
+<h1>In een SEO analyse wordt de impact van SEO gemeten en </br> worden ‘quick wins’ op SEO gebied geïdentificeerd zodat het </br> SEO-budget efficiënter wordt gespendeerd. </h1>
+</div> 
+  </div>
+</section>
+
+<section class="scroll-container js-scroll slide-right element2 ">
+  <div class=" js-scroll slide-right title_block element2">
+<h1>Je <span style="color: #FF656B">SEO-budget </span> wordt efficiënter gespendeerd. </h1>
+</div> 
+</section>
+
+<section class="scroll-container js-scroll slide-left element3">
+  <div class="js-scroll slide-left title_block element3">
+<h1>Handmatig SEO-onderzoek kost veel <span style="color: #ffe000">tijd</span>.</h1>
+</div> 
+</section>
+
+
+<section class="scroll-container-box">
+  <div class="scroll-element element4">
+  <div class="scroll-element title_block box">
+<h1>Wat is een SEO impact Analyse?</h1>
+<p> 
+Er is steeds <span style="color: #FF656B"> meer concurrentie</span> om gevonden te worden op SEO gebied, daarnaast is het lastig om de daadwerkelijke impact 
+van optimalisatie <span style="color: #FF656B">te meten</span>. SEO Impact Analyse is een tool die onder andere <span style="color: #FF656B">meer inzicht</span> geeft op SEO-kansen op pagina- en zoekwoordniveau.
+</br></br>
+Een SEO Impact Analyse biedt meer inzicht en <span style="color: #FF656B">automatiseert</span> deel van het SEO werk. Het dient als een vertrekpunt om een SEO-strategie te 
+bepalen. Door het overzichtelijke dashboard is het niet alleen makkelijk om je SEO budget efficiënter te spenderen, maar kan het effect van SEO ook <span style="color: #FF656B">gemeten</span> worden. 
+</p> 
+</div> 
+  </div>
+</section>
+ 
+
+<section class="scroll-container js-scroll slide-right element5">
+  <div class="js-scroll slide-right title_block element5">
+<h1>Het effect van SEO  wordt <span style="color: #FF656B">gemeten</span>. </h1>
+</div> 
+</section>
+
+<section class="scroll-container js-scroll slide-left element6">
+  <div class=" js-scroll slide-left title_block element6">
+<h1>Krijg meer  <span style="color: #ffe000">inzichten </span> in je SEO uitgaven.</h1>
+</div> 
+</section>
+
+
+
+<footer>
+    einde van de pagina
+</footer>
+
+
+
+<script> 
+/*
+tutorial used: https://css-tricks.com/lets-make-one-of-those-fancy-scrolling-animations-used-on-apple-product-pages/ 
+ additional inspiration: https://github.com/Spharian/apple-sequence-animation/blob/main/index.html
+additional inspiration:  https://codepen.io/jacob_124/pen/dyydWbB 
+additional inspiration: https://codepen.io/pkmo/pen/VwWYrdG */
+
+//values 
+const html = document.documentElement;
+const canvas = document.querySelector('canvas'); //where the image gets 'drawn' 
+const context = canvas.getContext("2d");
+const heroSequence = document.querySelector('.hero-sequence')
+
+//how many frames my animation has 
+const frameCount = 90; 
+
+
+//the image sequence is uploaded on my website, this code grabs all the images from the folder sequence04
+const currentFrame = index => (
+  //`https://www.apple.com/105/media/us/airpods-pro/2019/1299e2f5_9206_4470_b28e_08307a42f19b/anim/sequence/large/02-head-bob-turn/${index.toString().padStart(4, '0')}.jpg`
+  `https://i416399.hera.fhict.nl/PortfolioWebsiteS8/Sequence04/Sequence04${index.toString().padStart(3, '0')}.jpg`
+)
+
+//the title is pretty self explanatory this pre loads the images for a smoother sequence animation
+const preloadImages = () => {
+  for (let i = 1; i < frameCount; i++) {
+    const image = new Image();
+    image.src = currentFrame(i);
+	
+  }
+};
+
+const image = new Image()
+image.src = currentFrame(1); //start at frame 1 so the user sees the first frame of the sequence and is prompted to scroll 
+
+//the size of the sequence animation 
+canvas.width=3500;
+canvas.height=2500;
+
+//load the correct image in the sequence on the canvas so the user is prompted to scroll (otherwise you'd start with an empty page and the images would just be drawn on scroll)
+image.onload=function(){
+  context.drawImage(image, 0, 0);
+}
+
+//the title is pretty self explanatory this updates the images while scrolling 
+const updateImage = index => {
+  image.src = currentFrame(index);
+  context.drawImage(image, 0, 0);
+  console.log(index); 
+}
+
+//on scroll the animation happens this tracks how far the user has scrolled and what image corresponds to the scroll progress
+window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop - heroSequence.offsetTop
+    const maxScrollTop = heroSequence.scrollHeight - window.innerHeight
+    const scrollFraction = scrollTop / maxScrollTop
+    const frameIndex = Math.max(0, Math.min(frameCount - 1, Math.ceil(scrollFraction * frameCount)))
+    requestAnimationFrame(() => updateImage(frameIndex +1))
+	handleScrollAnimation();
+})
+
+preloadImages()
+
+
+
+//slide in animation inspiration: https://webdesign.tutsplus.com/tutorials/animate-on-scroll-with-javascript--cms-36671
+//targeting all js-scroll elements on the page
+const scrollElements = document.querySelectorAll(".js-scroll");
+ 
+
+//check if the user has scrolled far enough to get to the animation 
+const elementInView = (el, dividend = 1) => {
+  const elementTop = el.getBoundingClientRect().top;
+
+  return (
+    elementTop <=
+    (window.innerHeight || document.documentElement.clientHeight) / dividend
+  );
+};
+
+
+const elementOutofView = (el) => {
+  const elementTop = el.getBoundingClientRect().top;
+
+  return (
+    elementTop > (window.innerHeight || document.documentElement.clientHeight)
+  );
+};
+
+const displayScrollElement = (element) => {
+  element.classList.add("scrolled");
+};
+ 
+//reset the animation when it's not in view anymore  
+const hideScrollElement = (element) => {
+  element.classList.remove("scrolled");
+};
+
+//defining a function to handle displaying the js-scroll elements 
+const handleScrollAnimation = () => {
+  scrollElements.forEach((el) => {
+    if(elementInView(el, 1.25)) {
+      displayScrollElement(el);
+	  console.log("handleScrollAnimation if triggered" ); 
+    } else if (elementOutofView(el)) {
+      hideScrollElement(el)
+	   console.log("handleScrollAnimation if else triggered" ); 
+    }
+  })
+}
+</script>
+
+</style>
+
+
+ 
+
+</body> 
+</html> 
